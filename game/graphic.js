@@ -28,6 +28,9 @@ function init()
     player1 = new Player("player1", 0xffff00, new THREE.Vector2(50, 0), 0);
     scene.add(player1.graphic);
 
+    player2 = new Player("player2", 0x0000ff, new THREE.Vector2(0, 0), 0);
+    scene.add(player2.graphic);
+
     light1 = new Light("sun", 0xffffff, "0,0,340");
     scene.add(light1);
 }
@@ -62,11 +65,26 @@ function Ground(color, size_x, size_y, nb_tile)
                 noGround.push([x, y]);
         }
     }
+    color = colors[0xff0000];
+    tmpGround = new THREE.Mesh(
+    new THREE.PlaneGeometry(sizeOfTileX - 10, sizeOfTileY - 10),
+    new THREE.MeshLambertMaterial({color: color, transparent: true, opacity: 0.6}));
+    tmpGround.position.x = 50 + 10;
+    tmpGround.position.y = 0;
+    scene.add(tmpGround);
+
+    tmpGround = new THREE.Mesh(
+    new THREE.PlaneGeometry(sizeOfTileX - 10, sizeOfTileY - 10),
+    new THREE.MeshLambertMaterial({color: color, transparent: true, opacity: 0.6}));
+    
+    tmpGround.position.x = 0;
+    tmpGround.position.y = 0;
+    scene.add(tmpGround);
 }
 
 function Light(name, color, position)
 {
-    pointLight = new THREE.PointLight(color, 50, 350);
+    pointLight = new THREE.PointLight(color, 50, 600);
 
     pointLight.position.x = position.split(',')[0];
     pointLight.position.y = position.split(',')[1];

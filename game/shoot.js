@@ -19,6 +19,15 @@ function shoot()
         bullet.angle = player1.direction;
         player1.bullets.push(bullet);
         bulletTime1 = clock.getElapsedTime();
+        for (i= 30; i < 60; i++){
+            for (j= 10; j < 40; j++){
+                if (bullet.position.x == i && bullet.position.y == j){
+                    console.log("Ennemie killed");
+                    player2.dead();
+                }
+            }
+        }
+        
     } 
 
     // move bullets
@@ -52,7 +61,6 @@ function bullet_collision()
             i--;
         }
     }
-
 }
 
 function player_collision()
@@ -67,7 +75,8 @@ function player_collision()
         player1.graphic.position.y -= y;
     if ( y > HEIGHT )
         player1.graphic.position.y -= y - HEIGHT;
-
+    if ( x <= 0 )
+        player1.graphic.position.x -= x;
 }
 
 function player_falling()
@@ -83,6 +92,9 @@ function player_falling()
     for (var i = 0; i < length; i++) {
         element = noGround[i];
 
+        if (!element || element == undefined)
+            return;
+        
         var tileX = (element[0]) | 0;
         var tileY = (element[1]) | 0;
         var mtileX = (element[0] + sizeOfTileX) | 0;
